@@ -13,7 +13,10 @@ public class Exercise_2_1 {
     public static void main(String[] args) throws InterruptedException {
         Space board = new SequentialSpace();
         new Thread(new Waiter(board)).start();
-        board.put("lock");
+
+        for (int i = 0; i < N -1; i++) {
+            board.put("lock");
+        }
 
         for (int i = 0; i < N; i ++) {
             new Thread(new Philosopher(board, i)).start();
