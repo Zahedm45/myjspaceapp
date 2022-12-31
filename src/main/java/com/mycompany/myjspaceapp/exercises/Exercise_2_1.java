@@ -70,6 +70,8 @@ class Philosopher implements Runnable {
         while (true) {
             try {
 
+                board.get(new ActualField("lock"));
+
                 // Wait until the left fork is ready (get the corresponding tuple).
                 board.get(new ActualField("fork"), new ActualField(left));
                 System.out.println("Philosopher " + me + " got left fork");
@@ -85,6 +87,7 @@ class Philosopher implements Runnable {
                 board.put("fork", left);
                 board.put("fork", right);
                 System.out.println("Philosopher " + me + " put both forks on the table");
+                board.put("lock");
 
             } catch (InterruptedException e) {}
         }
