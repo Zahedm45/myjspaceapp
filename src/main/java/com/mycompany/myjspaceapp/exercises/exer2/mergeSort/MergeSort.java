@@ -5,8 +5,10 @@ import org.jspace.FormalField;
 import org.jspace.SequentialSpace;
 import org.jspace.Space;
 
+import java.util.Random;
+
 public class MergeSort {
-    public static final int N = 2;
+    public static final int N = 10;
     public static final String THREADS_NAME_CONQUER = "threadsConquer";
     public static final String DONE_CONQUER = "doneConquer";
     public static final String LOCK_CONQUER = "lockConquer";
@@ -26,7 +28,15 @@ public class MergeSort {
     public static void main(String[] args) throws InterruptedException {
 
         Space space = new SequentialSpace();
-        Integer[] arr = {6, 5, 4, 3, 2, 1, 5, 10};
+
+        //Integer[] arr = {6, 5, 4, 3, 2, 1, 5, 10};
+        int arraySize = 20;
+        Integer[] arr = new Integer[arraySize];
+        for (int i = 0; i < arraySize; i++) {
+            arr[i] = new Random().nextInt(100);
+        }
+
+
         space.put(DIVIDE, arr);
         space.put(SIZE_LEFT_DIVIDE, arr.length);
         space.put(LOCK_DIVIDE);
@@ -60,9 +70,13 @@ public class MergeSort {
         space.put(THREADS_NAME_CONQUER, threads2);
 
         space.get(new ActualField(DONE_CONQUER));
-        System.out.println("dd");
-        //Object[] obj = space.get()
+        Object[] obj = space.get(new ActualField(SORTED), new FormalField(Object.class));
+        Integer[] objArr = (Integer[]) obj[1];
 
+        for (Integer integer : objArr) {
+            System.out.print(integer + " ");
+        }
+        System.out.println();
     }
 
 
