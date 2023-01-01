@@ -15,7 +15,7 @@ public class MergeSort {
     public static void main(String[] args) throws InterruptedException {
 
         Space space = new SequentialSpace();
-        Integer[] arr = {6, 5, 4, 3, 2, 1};
+        Integer[] arr = {6, 5, 4, 3, 2, 1, 5, 10};
         space.put("divide", arr);
         space.put("sizeLeftToDivide", arr.length);
         space.put("lockDivide");
