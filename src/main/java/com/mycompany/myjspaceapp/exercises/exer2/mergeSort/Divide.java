@@ -31,7 +31,6 @@ class Divide implements Runnable {
                         space.put("divideDone");
                         return;
                     }
-
                     obj = space.getp(new ActualField("divide"), new FormalField(Object.class));
 
                 }*/
@@ -74,11 +73,14 @@ class Divide implements Runnable {
         int integer =(int) ob[1];
         integer -= i;
         space.put("sizeLeftToDivide", integer);
-        if (integer == 0) stopAllThreads();
+        if (integer == 0) {
+            MergeSort.stopAllThreads(space, "threadsDivide");
+            space.put("divideDone");
+        }
         //space.put("lockDivide");
     }
 
-    void stopAllThreads() throws InterruptedException {
+/*    void stopAllThreads() throws InterruptedException {
         Object[] obj = space.get(new ActualField("threadsDivide"), new FormalField(Object.class));
         Thread[] threads = (Thread[])obj[1];
 
@@ -86,5 +88,5 @@ class Divide implements Runnable {
             threads[i].interrupt();
         }
         space.put("divideDone");
-    }
+    }*/
 }

@@ -5,9 +5,12 @@ import org.jspace.ActualField;
 import org.jspace.FormalField;
 import org.jspace.Space;
 
+import static com.mycompany.myjspaceapp.exercises.exer2.mergeSort.MergeSort.*;
+
 class Conquer implements Runnable {
     Space space;
     int arrayLength;
+
 
     public Conquer(Space space, int arrayLength) {
         this.space = space;
@@ -18,11 +21,25 @@ class Conquer implements Runnable {
     public void run() {
         try {
             while (true) {
+                Data data = new Data();
 
-                Object[] obj1 = space.getp(new ActualField("sorted"), new FormalField(Integer.class));
-                Object[] obj2 = space.getp(new ActualField("sorted"), new FormalField(Integer.class));
 
-                if (obj1 == null && obj2 == null) {
+                space.get(new ActualField(LOCK_CONQUER));
+                Object[] obj1 = space.get(new ActualField("sorted"), new FormalField(Object.class));
+                data.arr1 = (Integer[]) obj1[1];
+                if (data.arr1.length == arrayLength) {
+                    MergeSort.stopAllThreads(space, THREADS_NAME_CONQUER);
+                    space.put(DONE_CONQUER);
+                    break;
+                }
+
+
+                Object[] obj2 = space.get(new ActualField("sorted"), new FormalField(Object.class));
+                space.put(LOCK_CONQUER);
+                data.arr2 = (Integer[]) obj2[1];
+
+
+/*                if (obj1 == null && obj2 == null) {
                     Object ob = space.queryp(new ActualField("conquerDone"));
                     if (ob != null) break;
                     continue;
@@ -34,15 +51,13 @@ class Conquer implements Runnable {
                 } else if (obj2 == null) {
                     if (isAllDone(obj1)) break;
                     continue;
-                }
+                }*/
 
 
-                Data data = new Data();
-                data.arr1 = (Integer[]) obj1[1];
-                data.arr2 = (Integer[]) obj2[1];
                 data.result = new Integer[data.arr1.length + data.arr2.length];
                 merge(data, 0, 0, 0);
                 space.put("sorted", data.result);
+
             }
 
 
@@ -82,13 +97,14 @@ class Conquer implements Runnable {
         }
     }
 
-    boolean isAllDone(Object[] obj) throws InterruptedException {
+/*    boolean isAllDone(Object[] obj) throws InterruptedException {
         Integer[] arr = (Integer[]) obj[1];
         if (arr.length == arrayLength) {
             space.put("conquerDone");
             return true;
         }
         return false;
-    }
+    }*/
+
 
 }

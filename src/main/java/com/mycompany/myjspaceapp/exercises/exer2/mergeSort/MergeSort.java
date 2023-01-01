@@ -6,7 +6,12 @@ import org.jspace.SequentialSpace;
 import org.jspace.Space;
 
 public class MergeSort {
-    public static final int N = 3;
+    public static final int N = 2;
+    public static final String THREADS_NAME_CONQUER = "threadsConquer";
+    public static final String DONE_CONQUER = "doneConquer";
+    public static final String LOCK_CONQUER = "lockConquer";
+
+
     public static void main(String[] args) throws InterruptedException {
 
         Space space = new SequentialSpace();
@@ -33,21 +38,30 @@ public class MergeSort {
 
 
 
+        space.put(LOCK_CONQUER);
+        Thread[] threads2 = new Thread[N];
 
-/*        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < N; i++) {
             Thread thread = new Thread(new Conquer(space, arr.length));
             thread.start();
+            threads2[i] = thread;
         }
+        space.put(THREADS_NAME_CONQUER, threads2);
 
 
+        space.get(new ActualField(DONE_CONQUER));
+        System.out.println(space);
+
+    }
 
 
-        space.get(new ActualField("conquerDone"));
-        System.out.println(space);*/
+    static void stopAllThreads(Space space, String threadsName) throws InterruptedException {
+        Object[] obj = space.get(new ActualField(threadsName), new FormalField(Object.class));
+        Thread[] threads = (Thread[])obj[1];
 
-
-
-
+        for (int i = 0; i < threads.length; i++) {
+            threads[i].interrupt();
+        }
     }
 }
 
@@ -66,4 +80,6 @@ class Data {
 
     public Data() {
     }
+
+
 }
