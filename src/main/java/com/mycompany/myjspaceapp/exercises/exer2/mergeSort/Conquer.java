@@ -25,7 +25,7 @@ class Conquer implements Runnable {
 
                 space.get(new ActualField(LOCK_CONQUER));
 
-                Object[] obj1 = space.get(new ActualField("sorted"), new FormalField(Object.class));
+                Object[] obj1 = space.get(new ActualField(SORTED), new FormalField(Object.class));
                 data.arr1 = (Integer[]) obj1[1];
                 if (data.arr1.length == arrayLength) {
                     MergeSort.stopAllThreads(space, THREADS_NAME_CONQUER);
@@ -35,13 +35,13 @@ class Conquer implements Runnable {
                 }
 
 
-                Object[] obj2 = space.get(new ActualField("sorted"), new FormalField(Object.class));
+                Object[] obj2 = space.get(new ActualField(SORTED), new FormalField(Object.class));
                 space.put(LOCK_CONQUER);
 
                 data.arr2 = (Integer[]) obj2[1];
                 data.result = new Integer[data.arr1.length + data.arr2.length];
                 merge(data, 0, 0, 0);
-                space.put("sorted", data.result);
+                space.put(SORTED, data.result);
 
             }
 

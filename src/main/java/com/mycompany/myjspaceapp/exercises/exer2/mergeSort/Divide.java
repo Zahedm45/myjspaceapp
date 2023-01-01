@@ -7,6 +7,8 @@ import org.jspace.Space;
 
 import java.util.Arrays;
 
+import static com.mycompany.myjspaceapp.exercises.exer2.mergeSort.MergeSort.*;
+
 class Divide implements Runnable {
     Space space;
     int arrayLen;
@@ -22,7 +24,7 @@ class Divide implements Runnable {
         try {
 
             while (true) {
-                Object[] obj = space.get(new ActualField("divide"), new FormalField(Object.class));
+                Object[] obj = space.get(new ActualField(DIVIDE), new FormalField(Object.class));
 
 /*                if (obj == null) {
                     Object[] ob = space.query(new ActualField("sizeLeftToDivide"), new FormalField(Integer.class));
@@ -53,7 +55,7 @@ class Divide implements Runnable {
 
     void putIntoSpace(Integer[] arr) throws InterruptedException {
         if (arr.length > 2) {
-            space.put("divide", arr);
+            space.put(DIVIDE, arr);
             return;
         }
 
@@ -66,16 +68,16 @@ class Divide implements Runnable {
             }
             i++;
         }
-        space.put("sorted", arr);
+        space.put(SORTED, arr);
 
         //space.get(new ActualField("lockDivide"));
-        Object[] ob = space.get(new ActualField("sizeLeftToDivide"), new FormalField(Integer.class));
+        Object[] ob = space.get(new ActualField(SIZE_LEFT_DIVIDE), new FormalField(Integer.class));
         int integer =(int) ob[1];
         integer -= i;
-        space.put("sizeLeftToDivide", integer);
+        space.put(SIZE_LEFT_DIVIDE, integer);
         if (integer == 0) {
-            MergeSort.stopAllThreads(space, "threadsDivide");
-            space.put("divideDone");
+            MergeSort.stopAllThreads(space, THREADS_NAME_DIVIDE);
+            space.put(DONE_DIVIDE);
         }
         //space.put("lockDivide");
     }

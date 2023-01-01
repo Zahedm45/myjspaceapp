@@ -10,15 +10,26 @@ public class MergeSort {
     public static final String THREADS_NAME_CONQUER = "threadsConquer";
     public static final String DONE_CONQUER = "doneConquer";
     public static final String LOCK_CONQUER = "lockConquer";
+    public static final String SORTED = "sorted";
+    public static final String DIVIDE = "divide";
+    public static final String LOCK_DIVIDE = "lockDivide";
+    public static final String THREADS_NAME_DIVIDE = "threadsDivide";
+    public static final String SIZE_LEFT_DIVIDE = "sizeLeftToDivide";
+    public static final String DONE_DIVIDE = "doneDivide";
+
+
+
+
+
 
 
     public static void main(String[] args) throws InterruptedException {
 
         Space space = new SequentialSpace();
         Integer[] arr = {6, 5, 4, 3, 2, 1, 5, 10};
-        space.put("divide", arr);
-        space.put("sizeLeftToDivide", arr.length);
-        space.put("lockDivide");
+        space.put(DIVIDE, arr);
+        space.put(SIZE_LEFT_DIVIDE, arr.length);
+        space.put(LOCK_DIVIDE);
 
 
         Thread[] threads = new Thread[N];
@@ -28,9 +39,9 @@ public class MergeSort {
            thread.start();
            threads[i] = thread;
         }
-        space.put("threadsDivide", threads);
+        space.put(THREADS_NAME_DIVIDE, threads);
 
-        space.get(new ActualField("divideDone"));
+        space.get(new ActualField(DONE_DIVIDE));
         System.out.println(space);
 
 
@@ -49,7 +60,7 @@ public class MergeSort {
         space.put(THREADS_NAME_CONQUER, threads2);
 
         space.get(new ActualField(DONE_CONQUER));
-
+        System.out.println("dd");
         //Object[] obj = space.get()
 
     }
