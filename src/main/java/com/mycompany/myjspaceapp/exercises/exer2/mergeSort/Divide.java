@@ -26,17 +26,6 @@ class Divide implements Runnable {
             while (true) {
                 Object[] obj = space.get(new ActualField(DIVIDE), new FormalField(Object.class));
 
-/*                if (obj == null) {
-                    Object[] ob = space.query(new ActualField("sizeLeftToDivide"), new FormalField(Integer.class));
-                    int sizeLeft =(int) ob[1];
-                    if (sizeLeft == 0) {
-                        space.put("divideDone");
-                        return;
-                    }
-                    obj = space.getp(new ActualField("divide"), new FormalField(Object.class));
-
-                }*/
-
                 Integer[] arr = (Integer[]) obj[1];
                 if (arr.length <= 2) System.out.println("Something went wrong!");
                 else {
@@ -82,13 +71,4 @@ class Divide implements Runnable {
         //space.put("lockDivide");
     }
 
-/*    void stopAllThreads() throws InterruptedException {
-        Object[] obj = space.get(new ActualField("threadsDivide"), new FormalField(Object.class));
-        Thread[] threads = (Thread[])obj[1];
-
-        for (int i = 0; i < threads.length; i++) {
-            threads[i].interrupt();
-        }
-        space.put("divideDone");
-    }*/
 }

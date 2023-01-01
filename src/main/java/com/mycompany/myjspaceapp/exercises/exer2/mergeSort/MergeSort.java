@@ -22,9 +22,6 @@ public class MergeSort {
 
 
 
-
-
-
     public static void main(String[] args) throws InterruptedException {
 
         Space space = new SequentialSpace();
@@ -53,10 +50,6 @@ public class MergeSort {
 
         space.get(new ActualField(DONE_DIVIDE));
         System.out.println(space);
-
-
-
-
 
 
         space.put(LOCK_CONQUER);
@@ -96,15 +89,4 @@ class Data {
     Integer[] arr1;
     Integer[] arr2;
     Integer[] result;
-
-    public Data(Integer[] arr1, Integer[] arr2, Integer[] result) {
-        this.arr1 = arr1;
-        this.arr2 = arr2;
-        this.result = result;
-    }
-
-    public Data() {
-    }
-
-
 }
