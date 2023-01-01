@@ -6,8 +6,18 @@ import java.util.Arrays;
 import java.util.List;
 
 public class App {
+    public static void main(String[] args) {
+        Space space = new SequentialSpace();
 
-    public static void main(String[] argv) throws InterruptedException {
+        Thread thread = new Thread(new Test(space));
+        thread.start();
+        thread.interrupt();
+
+
+
+    }
+
+/*    public static void main(String[] argv) throws InterruptedException {
         // Creating a tuple.
         Tuple tuple = new Tuple("milk", 1);
         System.out.println("We just created tuple");
@@ -61,6 +71,23 @@ public class App {
         for (Object[] obj : groceryList) {
             System.out.println(Arrays.toString(obj));
         }
+    }*/
+
+}
+
+class Test implements Runnable {
+    Space space;
+    public Test(Space space) {
+        this.space = space;
     }
 
+    @Override
+    public void run() {
+        try {
+            space.get(new ActualField("done"));
+
+        } catch (InterruptedException e) {
+        }
+
+    }
 }

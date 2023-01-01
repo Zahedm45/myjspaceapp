@@ -48,9 +48,9 @@ public class MergeSort {
         }
         space.put(THREADS_NAME_CONQUER, threads2);
 
-
         space.get(new ActualField(DONE_CONQUER));
-        System.out.println(space);
+
+        //Object[] obj = space.get()
 
     }
 

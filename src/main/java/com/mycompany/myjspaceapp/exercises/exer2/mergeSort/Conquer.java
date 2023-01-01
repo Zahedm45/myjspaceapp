@@ -47,7 +47,7 @@ class Conquer implements Runnable {
 
 
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
         }
 
 
