@@ -1,4 +1,4 @@
-package com.mycompany.myjspaceapp.exercises.exer2;
+package com.mycompany.myjspaceapp.exercises.exer2.philosopher;
 
 // This is a model of the classic problem of the dining philosophers.
 // The solution is based on using tickets to limit concurrency.
