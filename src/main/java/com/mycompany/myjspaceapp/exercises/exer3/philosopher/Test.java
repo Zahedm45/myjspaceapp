@@ -1,12 +1,10 @@
-package com.mycompany.myjspaceapp.exercises.exer3;
+package com.mycompany.myjspaceapp.exercises.exer3.philosopher;
 
 import org.jspace.ActualField;
 import org.jspace.RemoteSpace;
 import org.jspace.Space;
 
 import java.io.IOException;
-
-import static java.lang.Thread.sleep;
 
 public class Test {
     public static void main(String[] args) {

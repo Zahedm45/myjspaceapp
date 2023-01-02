@@ -1,4 +1,4 @@
-package com.mycompany.myjspaceapp.exercises.exer3;
+package com.mycompany.myjspaceapp.exercises.exer3.philosopher;
 
 import org.jspace.SequentialSpace;
 import org.jspace.Space;
