@@ -20,8 +20,6 @@ public class MergeSort {
     public static final String DONE_DIVIDE = "doneDivide";
 
 
-
-
     public static void main(String[] args) throws InterruptedException {
 
         Space space = new SequentialSpace();
@@ -77,14 +75,14 @@ public class MergeSort {
     }
 
 
-    static void stopAllThreads(Space space, String threadsName) throws InterruptedException {
+/*    static void stopAllThreads(Space space, String threadsName) throws InterruptedException {
         Object[] obj = space.get(new ActualField(threadsName), new FormalField(Object.class));
         Thread[] threads = (Thread[])obj[1];
 
         for (int i = 0; i < threads.length; i++) {
             threads[i].interrupt();
         }
-    }
+    }*/
 }
 
 

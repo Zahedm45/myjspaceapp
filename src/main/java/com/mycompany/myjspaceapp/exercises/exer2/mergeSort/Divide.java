@@ -22,11 +22,15 @@ class Divide implements Runnable {
     public void run() {
 
         try {
-
             while (true) {
                 Object[] obj = space.get(new ActualField(DIVIDE), new FormalField(Object.class));
 
                 Integer[] arr = (Integer[]) obj[1];
+                if (arr.length == 0) {          // No more job to be done
+                    space.put(obj);
+                    return;
+                }
+
                 if (arr.length <= 2) System.out.println("Something went wrong!");
                 else {
                     int mid = arr.length / 2;
@@ -58,17 +62,20 @@ class Divide implements Runnable {
             i++;
         }
         space.put(SORTED, arr);
+        updateSizeLeftToDivide(i);
 
-        //space.get(new ActualField("lockDivide"));
+    }
+
+
+    void updateSizeLeftToDivide(int i) throws InterruptedException {
         Object[] ob = space.get(new ActualField(SIZE_LEFT_DIVIDE), new FormalField(Integer.class));
         int integer =(int) ob[1];
         integer -= i;
         space.put(SIZE_LEFT_DIVIDE, integer);
         if (integer == 0) {
-            MergeSort.stopAllThreads(space, THREADS_NAME_DIVIDE);
+            Integer[] emptyArr = new Integer[0];
+            space.put(DIVIDE, emptyArr);
             space.put(DONE_DIVIDE);
         }
-        //space.put("lockDivide");
     }
-
 }
