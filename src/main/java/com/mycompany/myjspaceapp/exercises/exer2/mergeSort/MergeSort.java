@@ -8,7 +8,7 @@ import org.jspace.Space;
 import java.util.Random;
 
 public class MergeSort {
-    public static final int N = 2;
+    public static final int N = 10;
     public static final String THREADS_NAME_CONQUER = "threadsConquer";
     public static final String DONE_CONQUER = "doneConquer";
     public static final String LOCK_CONQUER = "lockConquer";
@@ -63,8 +63,9 @@ public class MergeSort {
         //space.put(THREADS_NAME_CONQUER, threads2);
 
 
-        space.get(new ActualField(DONE_CONQUER));
-        space.get(new ActualField(DONE_CONQUER));
+        for (int i = 0; i < N; i++) {
+            space.get(new ActualField(DONE_CONQUER));
+        }
 
         Object[] obj = space.get(new ActualField(SORTED), new FormalField(Object.class));
         Integer[] objArr = (Integer[]) obj[1];

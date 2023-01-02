@@ -21,24 +21,19 @@ class Conquer implements Runnable {
     public void run() {
         try {
             while (true) {
-                Data data = new Data();
-
                 space.get(new ActualField(LOCK_CONQUER));
                 Object[] obj1 = space.get(new ActualField(SORTED), new FormalField(Object.class));
                 if (isConqueringDone(obj1)) return;
-
                 Object[] obj2 = space.get(new ActualField(SORTED), new FormalField(Object.class));
-                //if (isConqueringDone(obj2)) return;
                 space.put(LOCK_CONQUER);
 
+                Data data = new Data();
                 data.arr1 = (Integer[]) obj1[1];
                 data.arr2 = (Integer[]) obj2[1];
                 data.result = new Integer[data.arr1.length + data.arr2.length];
                 merge(data, 0, 0, 0);
                 space.put(SORTED, data.result);
-
             }
-
 
         } catch (InterruptedException e) {
             //throw new RuntimeException(e);
@@ -79,16 +74,11 @@ class Conquer implements Runnable {
     boolean isConqueringDone(Object[] obj1) throws InterruptedException {
         Integer[] arr1 = (Integer[]) obj1[1];
         if (arr1.length == arrayLength) {
-            //MergeSort.stopAllThreads(space, THREADS_NAME_CONQUER);
-            System.out.println("len: " + arr1.length);
             space.put(SORTED, arr1);
             space.put(LOCK_CONQUER);
             space.put(DONE_CONQUER);
-
-
             return true;
         }
-
         return false;
     }
 
