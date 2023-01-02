@@ -23,7 +23,6 @@ public class MergeSort {
     public static void main(String[] args) throws InterruptedException {
 
         Space space = new SequentialSpace();
-
         //Integer[] arr = {6, 5, 4, 3, 2, 1, 5, 10};
         int arraySize = 20;
         Integer[] arr = new Integer[arraySize];
@@ -35,54 +34,47 @@ public class MergeSort {
         space.put(DIVIDE, arr);
         space.put(SIZE_LEFT_DIVIDE, arr.length);
         space.put(LOCK_DIVIDE);
+        space.put(LOCK_CONQUER);
 
 
-        Thread[] threads = new Thread[N];
 
         for (int i = 0; i < N; i++) {
            Thread thread = new Thread(new Divide(space, arr.length));
            thread.start();
-           threads[i] = thread;
         }
-        space.put(THREADS_NAME_DIVIDE, threads);
 
         space.get(new ActualField(DONE_DIVIDE));
-        System.out.println(space);
-
-
-        space.put(LOCK_CONQUER);
-        Thread[] threads2 = new Thread[N];
+        System.out.println("Divide: done");
 
         for (int i = 0; i < N; i++) {
             Thread thread = new Thread(new Conquer(space, arr.length));
             thread.start();
-            threads2[i] = thread;
         }
-        //space.put(THREADS_NAME_CONQUER, threads2);
+
+        waitForCompletion(space, DONE_CONQUER, "Conquer: done");
+        printArray(space);
 
 
+    }
+
+
+
+    static void waitForCompletion(Space space, String tag, String msg) throws InterruptedException {
         for (int i = 0; i < N; i++) {
-            space.get(new ActualField(DONE_CONQUER));
+            space.get(new ActualField(tag));
         }
+        System.out.println(msg);
+    }
 
+    static void printArray(Space space) throws InterruptedException {
         Object[] obj = space.get(new ActualField(SORTED), new FormalField(Object.class));
         Integer[] objArr = (Integer[]) obj[1];
-
+        System.out.print("Sorted Array: ");
         for (Integer integer : objArr) {
             System.out.print(integer + " ");
         }
         System.out.println();
     }
-
-
-/*    static void stopAllThreads(Space space, String threadsName) throws InterruptedException {
-        Object[] obj = space.get(new ActualField(threadsName), new FormalField(Object.class));
-        Thread[] threads = (Thread[])obj[1];
-
-        for (int i = 0; i < threads.length; i++) {
-            threads[i].interrupt();
-        }
-    }*/
 }
 
 
