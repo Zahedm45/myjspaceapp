@@ -1,4 +1,4 @@
-package com.mycompany.myjspaceapp.exercises.exer3.philosopher;
+package com.mycompany.myjspaceapp.exercises.exer3_distributedP.philosopher;
 
 import org.jspace.SequentialSpace;
 import org.jspace.Space;
@@ -8,11 +8,11 @@ import org.jspace.SpaceRepository;
 public class Server {
     public static void main(String[] args) {
         int port = 31145;
-        String host = "localhost";
+        //String host = "localhost";
+        String host = "10.209.95.114";
         int philosophers = 2;
 
-
-        String uri = "tcp://" + host + ":" + port + "/?conn";
+        String uri = "tcp://" + host + ":" + port + "/?keep";
         SpaceRepository spaceRepository = new SpaceRepository();
         spaceRepository.addGate(uri);
         Space board = new SequentialSpace();

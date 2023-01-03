@@ -1,4 +1,4 @@
-package com.mycompany.myjspaceapp.exercises.exer3.philosopher;
+package com.mycompany.myjspaceapp.exercises.exer3_distributedP.philosopher;
 
 import org.jspace.ActualField;
 import org.jspace.RemoteSpace;
@@ -9,14 +9,16 @@ class Philosopher {
     static int numPhilosophers = 0;
     static int me = 0;
     static int port = 31145;
-    static String host = "localhost";
+    //static String host = "localhost";
+    static String host = "10.209.95.114";
+
 
     public static void main(String[] args) {
 
         initialize(args);
 
         try {
-            String uri = "tcp://" + host + ":" + port + "/board?conn";
+            String uri = "tcp://" + host + ":" + port + "/board?keep";
             Space board = new RemoteSpace(uri);
             run(board, me, numPhilosophers);
         } catch (IOException e) {
