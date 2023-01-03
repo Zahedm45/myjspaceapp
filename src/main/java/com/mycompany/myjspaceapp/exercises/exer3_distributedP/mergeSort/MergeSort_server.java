@@ -30,7 +30,7 @@ public class MergeSort_server {
         spaceRepository.add("space", space);
 
         //Integer[] arr = {6, 5, 4, 3, 2, 1, 5, 10};
-        int arraySize = 20;
+        int arraySize = 9000;
         Integer[] arr = new Integer[arraySize];
         for (int i = 0; i < arraySize; i++) {
             arr[i] = new Random().nextInt(100);
@@ -40,6 +40,7 @@ public class MergeSort_server {
         try {
 
             space.put(DIVIDE, arr);
+            space.put("arrayLengthConquer", arr.length);
             space.put(SIZE_LEFT_DIVIDE, arr.length);
             space.put(LOCK_DIVIDE);
             space.put(LOCK_CONQUER);
@@ -48,12 +49,13 @@ public class MergeSort_server {
             space.get(new ActualField(DONE_DIVIDE));
             System.out.println("Divide: done");
 
-            List<Object[]> objList = space.queryAll(new ActualField(SORTED), new FormalField(Object.class));
+            //List<Object[]> objList = space.queryAll(new ActualField(SORTED), new FormalField(Object.class));
 
 
 
 
-            waitForCompletion(space, DONE_CONQUER, "Conquer: done");
+            //waitForCompletion(space, DONE_CONQUER, "Conquer: done");
+            space.get(new ActualField(DONE_CONQUER));
             printArray(space);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
